@@ -260,7 +260,7 @@ fill_dnsmasq_servers(void)
 	}
 
 	/* fill from user dnsmasq.servers */
-	load_user_config(fp, storage_dir, "dnsmasq.servers", NULL);
+	//load_user_config(fp, storage_dir, "dnsmasq.servers", NULL);
 
 	fclose(fp);
 
@@ -343,8 +343,10 @@ start_dns_dhcpd(int is_ap_mode)
 		is_dns_used = 1;
 		fprintf(fp, "min-port=%d\n", 4096);
 		fprintf(fp, "cache-size=%d\n", DNS_RELAY_CACHE_MAX);
+		fprintf(fp, "dns-forward-max=%d\n", DNS_RELAY_QUERIES_MAX);
 		fprintf(fp, "addn-hosts=%s/hosts\n", storage_dir);
 		fprintf(fp, "servers-file=%s\n", DNS_SERVERS_FILE);
+		fprintf(fp, "dhcp-hostsfile=%s/dhcp.conf\n", storage_dir);
 	} else {
 		is_dns_used = 0;
 		fprintf(fp, "cache-size=%d\n", 0);
